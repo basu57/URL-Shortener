@@ -1,17 +1,16 @@
 import express from 'express'
 import mongoose from 'mongoose';
-import { shortUrl, getOriginalUrl } from "./Controllers/url.js";
+import dotenv from 'dotenv';
 
+import { shortUrl, getOriginalUrl } from "./Controllers/url.js";
+dotenv.config();
 const app = express();
 
 app.use(express.urlencoded({extended:true}))
 
 mongoose
   .connect(
-    "mongodb+srv://codesnippet02:nq0sdJL2Jc3QqZba@cluster0.zmf40.mongodb.net/",
-    {
-      dbName: "NodeJs_Mastery_Course",
-    }
+  process.env.URL 
   )
   .then(() => console.log("MongoDb Connected..!"))
   .catch((err) => console.log(err));
@@ -28,5 +27,5 @@ mongoose
   // redirect to original url using short code :- dynamic routing
   app.get("/:shortCode", getOriginalUrl);
 
-const port = 1000;
+const port = process.env.PORT || 1000;
 app.listen(port,()=>console.log(`server is running on port ${port}`))
