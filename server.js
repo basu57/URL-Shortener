@@ -10,7 +10,7 @@ app.use(express.urlencoded({extended:true}))
 
 mongoose
   .connect(
-  process.env.URL 
+  process.env.URI 
   )
   .then(() => console.log("MongoDb Connected..!"))
   .catch((err) => console.log(err));
